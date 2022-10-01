@@ -47,9 +47,12 @@ uint16_t SHT21::readSHT21(uint8_t command)
     Wire.endTransmission();
 	delay(100);
 
+    unsigned long timestamp = millis();
     Wire.requestFrom(SHT21_ADDRESS, 3);
     while(Wire.available() < 3) {
       delay(1);
+      if(millis() - timestamp > 10000)
+        return -1;
     }
 
     // return result
