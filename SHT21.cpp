@@ -50,13 +50,13 @@ uint16_t SHT21::readSHT21(uint8_t command)
 	Wire.beginTransmission(SHT21_ADDRESS);
 	Wire.write(command);
 	Wire.endTransmission();
-	delay(100);
+	vTaskDelay(100 / portTICK_PERIOD_MS);
 
 	unsigned long timestamp = millis();
 	Wire.requestFrom(SHT21_ADDRESS, 3);
 	while(Wire.available() < 3)
 	{
-		delay(1);
+		vTaskDelay(1 / portTICK_PERIOD_MS);
 		if(millis() - timestamp > 10000)
 			return 0xFFFF;
 	}
