@@ -27,12 +27,20 @@ void SHT21::begin(void)
 
 float SHT21::getHumidity(void)
 {
-	return (-6.0 + 125.0 / 65536.0 * (float)(readSHT21(TRIGGER_HUMD_MEASURE_NOHOLD)));
+	uint16_t data = readSHT21(TRIGGER_HUMD_MEASURE_NOHOLD);
+	if(data == 0xFFFF)
+		return MIN_FLOAT;
+	else
+		return (-6.0 + 125.0 / 65536.0 * (float)(data));
 }
 
 float SHT21::getTemperature(void)
 {
-	return (-46.85 + 175.72 / 65536.0 * (float)(readSHT21(TRIGGER_TEMP_MEASURE_NOHOLD)));
+	uint16_t data = readSHT21(TRIGGER_TEMP_MEASURE_NOHOLD);
+	if(data == 0xFFFF)
+		return MIN_FLOAT;
+	else
+		return (-46.85 + 175.72 / 65536.0 * (float)(data));
 }
 
 uint16_t SHT21::readSHT21(uint8_t command)

@@ -21,6 +21,7 @@
 
 #include <Wire.h>
 #include <Arduino.h>
+#include <float.h>
 
 #define SHT21_ADDRESS 0x40  //I2C address for the sensor
 
