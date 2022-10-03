@@ -15,7 +15,6 @@ Date: September 22nd, 2013
 License: This code is public domain but you buy me a beer if you use this and we meet someday (Beerware license).
 */
 
-#include <Wire.h>
 #include "SHT21.h"
 
 SHT21::SHT21 () {}
