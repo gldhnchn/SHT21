@@ -33,7 +33,7 @@ class SHT21 {
 public:
   SHT21();
 	
-  void begin();
+  void begin(TwoWire *theWire = &Wire);
   float getHumidity(unsigned long timeout_in_ms = 10000);
   float getTemperature(unsigned long timeout_in_ms = 10000);
   	

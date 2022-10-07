@@ -19,9 +19,9 @@ License: This code is public domain but you buy me a beer if you use this and we
 
 SHT21::SHT21 () {}
 
-void SHT21::begin(void)
+void SHT21::begin(TwoWire *theWire)
 {
-	Wire.begin();
+	theWire->begin();
 }
 
 float SHT21::getHumidity(unsigned long timeout_in_ms)
