@@ -24,25 +24,25 @@ void SHT21::begin(void)
 	Wire.begin();
 }
 
-float SHT21::getHumidity(void)
+float SHT21::getHumidity(unsigned long timeout_in_ms)
 {
-	uint16_t data = readSHT21(TRIGGER_HUMD_MEASURE_NOHOLD);
+	uint16_t data = readSHT21(TRIGGER_HUMD_MEASURE_NOHOLD, timeout_in_ms);
 	if(data == 0xFFFF)
 		return FLT_MIN;
 	else
 		return (-6.0 + 125.0 / 65536.0 * (float)(data));
 }
 
-float SHT21::getTemperature(void)
+float SHT21::getTemperature(unsigned long timeout_in_ms)
 {
-	uint16_t data = readSHT21(TRIGGER_TEMP_MEASURE_NOHOLD);
+	uint16_t data = readSHT21(TRIGGER_TEMP_MEASURE_NOHOLD, timeout_in_ms);
 	if(data == 0xFFFF)
 		return FLT_MIN;
 	else
 		return (-46.85 + 175.72 / 65536.0 * (float)(data));
 }
 
-uint16_t SHT21::readSHT21(uint8_t command)
+uint16_t SHT21::readSHT21(uint8_t command, unsigned long timeout_in_ms)
 {
 	uint16_t result;
 
@@ -56,7 +56,7 @@ uint16_t SHT21::readSHT21(uint8_t command)
 	while(Wire.available() < 3)
 	{
 		vTaskDelay(1 / portTICK_PERIOD_MS);
-		if(millis() - timestamp > 10000)
+		if(millis() - timestamp > timeout_in_ms)
 			return 0xFFFF;
 	}
 

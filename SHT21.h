@@ -34,12 +34,12 @@ public:
   SHT21();
 	
   void begin();
-  float getHumidity(void);
-  float getTemperature(void);
+  float getHumidity(unsigned long timeout_in_ms = 10000);
+  float getTemperature(unsigned long timeout_in_ms = 10000);
   	
 private:
   
-  uint16_t readSHT21(uint8_t command);
+  uint16_t readSHT21(uint8_t command, unsigned long timeout_in_ms = 10000);
   
 };
 
